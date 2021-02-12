@@ -1,7 +1,11 @@
 import * as RadNav from './RadioNav.jsx';
 import { getSimVar } from '../util.mjs';
+import { LagFilter } from './PFDUtils.jsx';
 
-export function LandingSystem({ LSButtonPressed }) {
+const filterLocalizerIndicator = new LagFilter(2.0);
+const filterGlideslopeIndicator = new LagFilter(2.0);
+
+export function LandingSystem({ LSButtonPressed, deltaTime }) {
     let localizer = null;
     let showVDev = false;
 
@@ -19,8 +23,8 @@ export function LandingSystem({ LSButtonPressed }) {
             <LandingSystemInfo displayed={LSButtonPressed} localizer={localizer} />
             {LSButtonPressed && (
                 <g id="LSGroup">
-                    <LocalizerIndicator localizer={localizer} />
-                    <GlideslopeIndicator localizer={localizer} />
+                    <LocalizerIndicator localizer={localizer} deltaTime={deltaTime} />
+                    <GlideslopeIndicator localizer={localizer} deltaTime={deltaTime} />
                     <MarkerBeaconIndicator />
                 </g>
             )}
@@ -82,13 +86,13 @@ const LandingSystemInfo = ({ displayed, localizer }) => {
     );
 };
 
-const LocalizerIndicator = ({ localizer }) => {
-    const hasLoc = getSimVar(`NAV HAS NAV:${localizer.id}`, 'Bool');
+const LocalizerIndicator = ({ localizer, deltaTime }) => {
+    const hasLoc = getSimVar(`NAV HAS LOCALIZER:${localizer.id}`, 'Bool');
 
     let diamond = null;
 
     if (hasLoc) {
-        const deviation = getSimVar(`NAV RADIAL ERROR:${localizer.id}`, 'degrees');
+        const deviation = filterLocalizerIndicator.step(getSimVar(`NAV RADIAL ERROR:${localizer.id}`, 'degrees'), deltaTime / 1000);
         const dots = deviation / 0.8;
 
         if (dots > 2) {
@@ -112,13 +116,13 @@ const LocalizerIndicator = ({ localizer }) => {
     );
 };
 
-const GlideslopeIndicator = ({ localizer }) => {
+const GlideslopeIndicator = ({ localizer, deltaTime }) => {
     const hasGlideslope = getSimVar(`NAV HAS GLIDE SLOPE:${localizer.id}`, 'Bool');
 
     let diamond = null;
 
     if (hasGlideslope) {
-        const deviation = getSimVar(`NAV GLIDE SLOPE ERROR:${localizer.id}`, 'degrees');
+        const deviation = filterGlideslopeIndicator.step(getSimVar(`NAV GLIDE SLOPE ERROR:${localizer.id}`, 'degrees'), deltaTime / 1000);
         const dots = deviation / 0.4;
 
         if (dots > 2) {
