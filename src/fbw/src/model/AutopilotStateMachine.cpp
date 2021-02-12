@@ -2403,7 +2403,7 @@ void AutopilotStateMachineModelClass::step()
   AutopilotStateMachine_B.BusAssignment_g.vertical.condition.GS_CPT = (AutopilotStateMachine_U.in.data.nav_valid &&
     AutopilotStateMachine_U.in.data.nav_gs_valid && ((AutopilotStateMachine_DWork.Delay_DSTATE.output.mode ==
     lateral_mode_LOC_CPT) || (AutopilotStateMachine_DWork.Delay_DSTATE.output.mode == lateral_mode_LOC_TRACK)) &&
-    (AutopilotStateMachine_U.in.data.nav_gs_error_deg >= -0.2) && (tmp < 1.0));
+    (AutopilotStateMachine_U.in.data.nav_gs_error_deg >= -0.1) && (tmp < 1.0));
   AutopilotStateMachine_B.BusAssignment_g.vertical.condition.GS_TRACK = (AutopilotStateMachine_U.in.time.simulation_time
     - AutopilotStateMachine_DWork.eventTime_c >= 15.0);
   AutopilotStateMachine_B.BusAssignment_g.vertical.condition.LAND = rtb_cLAND;
