@@ -1396,21 +1396,6 @@ void AutopilotStateMachineModelClass::AutopilotStateMachine_GS(void)
     if (AutopilotStateMachine_B.BusAssignment_g.vertical.condition.FLARE) {
       AutopilotStateMachine_DWork.is_GS = AutopilotStateMachine_IN_FLARE;
       AutopilotStateMachine_FLARE_entry_g();
-    } else {
-      if (!AutopilotStateMachine_B.BusAssignment_g.vertical.condition.LAND) {
-        if (AutopilotStateMachine_B.BusAssignment_g.data.on_ground == 0.0) {
-          AutopilotStateMachine_DWork.is_GS = AutopilotStateMachine_IN_NO_ACTIVE_CHILD;
-          AutopilotStateMachine_DWork.is_ON = AutopilotStateMachine_IN_VS;
-          AutopilotStateMachine_VS_entry();
-        } else {
-          if (AutopilotStateMachine_B.BusAssignment_g.data.on_ground != 0.0) {
-            AutopilotStateMachine_DWork.is_GS = AutopilotStateMachine_IN_NO_ACTIVE_CHILD;
-            AutopilotStateMachine_DWork.is_ON = AutopilotStateMachine_IN_NO_ACTIVE_CHILD;
-            AutopilotStateMachine_DWork.is_c6_AutopilotStateMachine = AutopilotStateMachine_IN_OFF_o;
-            AutopilotStateMachine_OFF_entry_p();
-          }
-        }
-      }
     }
     break;
 
