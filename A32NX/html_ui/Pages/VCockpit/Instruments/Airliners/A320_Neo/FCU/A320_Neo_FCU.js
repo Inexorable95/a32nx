@@ -218,6 +218,12 @@ class A320_Neo_FCU_Heading extends A320_Neo_FCU_Component {
         this.trueAirspeedThreshold = 50; // in knots
         this.headingForTrackRecalculationPeriod = 1500; // in ms
         this.inSelection = false;
+
+        this._rotaryEncoderCurrentSpeed = 1;
+        this._rotaryEncoderMaximumSpeed = 5;
+        this._rotaryEncoderTimeout = 350;
+        this._rotaryEncoderIncrement = 0.075;
+        this._rotaryEncoderPreviousTimestamp = 0;
     }
 
     init() {
@@ -452,18 +458,29 @@ class A320_Neo_FCU_Heading extends A320_Neo_FCU_Component {
         return _heading == NaN ? _track : _heading;
     }
 
+    getRotationSpeed() {
+        if (this._rotaryEncoderCurrentSpeed < 1
+            || (Date.now() - this._rotaryEncoderPreviousTimestamp) > this._rotaryEncoderTimeout) {
+            this._rotaryEncoderCurrentSpeed = 1;
+        } else {
+            this._rotaryEncoderCurrentSpeed += this._rotaryEncoderIncrement;
+        }
+        this._rotaryEncoderPreviousTimestamp = Date.now();
+        return Math.min(this._rotaryEncoderMaximumSpeed, Math.floor(this._rotaryEncoderCurrentSpeed));
+    }
+
     onEvent(_event) {
         if (_event === "HDG_INC_HEADING") {
-            this.selectedValue = (((this.selectedValue + 1) % 360) + 360) % 360;
+            this.selectedValue = (((this.selectedValue + this.getRotationSpeed()) % 360) + 360) % 360;
             this.onRotate();
         } else if (_event === "HDG_DEC_HEADING") {
-            this.selectedValue = (((this.selectedValue - 1) % 360) + 360) % 360;
+            this.selectedValue = (((this.selectedValue - this.getRotationSpeed()) % 360) + 360) % 360;
             this.onRotate();
         } else if (_event === "HDG_INC_TRACK") {
-            this.selectedValue = (((this.selectedValue + 1) % 360) + 360) % 360;
+            this.selectedValue = (((this.selectedValue + this.getRotationSpeed()) % 360) + 360) % 360;
             this.onRotate();
         } else if (_event === "HDG_DEC_TRACK") {
-            this.selectedValue = (((this.selectedValue - 1) % 360) + 360) % 360;
+            this.selectedValue = (((this.selectedValue - this.getRotationSpeed()) % 360) + 360) % 360;
             this.onRotate();
         } else if (_event === "HDG_PUSH") {
             this.onPush();
