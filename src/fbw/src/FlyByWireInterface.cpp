@@ -292,7 +292,7 @@ bool FlyByWireInterface::updateAutopilotStateMachine(double sampleTime) {
   // update autothrust mode -------------------------------------------------------------------------------------------
   set_named_variable_value(idAutothrustMode, autopilotStateMachineOutput.autothrust_mode);
 
-  if (simData.isAutoThrottleActive) {
+  if (autoThrustWorkaroundEnabled && simData.isAutoThrottleActive) {
     if (autopilotStateMachineOutput.autothrust_mode == 2) {
       // IDLE
       rateLimiterEngine_1.update(25, sampleTime);
@@ -711,6 +711,7 @@ void FlyByWireInterface::loadConfiguration() {
   flightDirectorSmoothingEnabled = configuration.GetBoolean("Autopilot", "FlightDirectorSmoothingEnabled", true);
   flightDirectorSmoothingFactor = configuration.GetReal("Autopilot", "FlightDirectorSmoothingFactor", 2.5);
   flightDirectorSmoothingLimit = configuration.GetReal("Autopilot", "FlightDirectorSmoothingLimit", 20);
+  autoThrustWorkaroundEnabled = configuration.GetBoolean("Autopilot", "AutoThrustWorkaroundEnabled", true);
   std::cout << "WASM: Model Configuration : AutopilotStateMachineEnabled = " << autopilotStateMachineEnabled << endl;
   std::cout << "WASM: Model Configuration : AutopilotLawsEnabled         = " << autopilotLawsEnabled << endl;
   std::cout << "WASM: Model Configuration : FlyByWireEnabled             = " << flyByWireEnabled << endl;
@@ -721,6 +722,7 @@ void FlyByWireInterface::loadConfiguration() {
             << endl;
   std::cout << "WASM: Autopilot Configuration : FlightDirectorSmoothingLimit = " << flightDirectorSmoothingLimit
             << endl;
+  std::cout << "WASM: Autopilot Configuration : AutoThrustWorkaroundEnabled = " << autoThrustWorkaroundEnabled << endl;
 }
 
 void FlyByWireInterface::initializeThrottles() {

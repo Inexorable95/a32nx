@@ -60,6 +60,7 @@ class FlyByWireInterface {
   bool autopilotStateMachineEnabled = false;
   bool autopilotLawsEnabled = false;
   bool flyByWireEnabled = false;
+  bool autoThrustWorkaroundEnabled = false;
 
   bool pauseDetected = false;
 
