@@ -196,6 +196,7 @@ typedef struct {
   boolean_T H_fcu_in_selection;
   boolean_T H_constraint_valid;
   boolean_T Psi_fcu_in_selection;
+  boolean_T gs_convergent_towards_beam;
 } ap_sm_data_computed;
 
 #endif

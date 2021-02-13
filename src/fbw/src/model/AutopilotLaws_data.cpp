@@ -180,7 +180,7 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
   { 1.9, 1.9, 3.0, 3.5, 4.5, 5.0 },
 
 
-  { 180.0, 180.0, 140.0, 90.0, 90.0 },
+  { 160.0, 160.0, 120.0, 80.0, 80.0 },
 
 
   { 1.9, 1.9, 3.0, 3.5, 4.5, 5.0 },
@@ -531,6 +531,16 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
   2.0,
 
   0.0,
+
+  -1.0,
+
+  0.017453292519943295,
+
+  0.35,
+
+  -5.0,
+
+  0.35,
 
   -2.0,
 

@@ -22,8 +22,11 @@ typedef struct {
   ap_lateral Delay_DSTATE;
   real_T Delay_DSTATE_d[100];
   real_T Delay_DSTATE_c[100];
-  real_T Delay_DSTATE_o;
-  real_T Delay_DSTATE_b;
+  real_T Delay_DSTATE_cs;
+  real_T Delay1_DSTATE_p;
+  real_T DelayInput1_DSTATE;
+  real_T Delay_DSTATE_a;
+  real_T Delay_DSTATE_f;
   real_T local_H_fcu_ft;
   real_T local_H_constraint_ft;
   real_T eventTime;
@@ -34,7 +37,7 @@ typedef struct {
   real_T accelerationAltitudeActive;
   real_T newFcuAltitudeSelected_b;
   real_T accelerationAltitudeActive_a;
-  boolean_T DelayInput1_DSTATE;
+  boolean_T DelayInput1_DSTATE_p;
   boolean_T DelayInput1_DSTATE_b;
   boolean_T DelayInput1_DSTATE_d;
   boolean_T DelayInput1_DSTATE_e;
@@ -81,13 +84,15 @@ typedef struct {
 
 struct Parameters_AutopilotStateMachine_T_ {
   ap_sm_output ap_sm_output_MATLABStruct;
+  real_T LagFilter_C1;
   real_T RateLimiterDynamicVariableTs_InitialCondition;
-  real_T RateLimiterDynamicVariableTs_InitialCondition_o;
+  real_T RateLimiterDynamicVariableTs_InitialCondition_g;
   real_T Debounce_Value;
   real_T Debounce_Value_j;
   real_T CompareToConstant_const;
-  real_T CompareToConstant_const_a;
-  real_T CompareToConstant_const_c;
+  real_T CompareToConstant_const_f;
+  real_T CompareToConstant_const_k;
+  real_T DetectDecrease_vinit;
   boolean_T DetectIncrease_vinit;
   boolean_T DetectIncrease1_vinit;
   boolean_T DetectIncrease2_vinit;
@@ -120,10 +125,13 @@ struct Parameters_AutopilotStateMachine_T_ {
   real_T Delay_InitialCondition_i;
   real_T Constant_Value_j;
   real_T Delay_InitialCondition_m;
+  real_T Delay_InitialCondition_a;
+  real_T Constant_Value_o;
+  real_T Delay1_InitialCondition_f;
   real_T Raising_Value;
   real_T Falling_Value;
-  real_T Raising_Value_k;
-  real_T Falling_Value_f;
+  real_T Raising_Value_m;
+  real_T Falling_Value_b;
 };
 
 extern const ap_sm_input AutopilotStateMachine_rtZap_sm_input;
