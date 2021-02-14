@@ -213,10 +213,7 @@ class A320_Neo_FCU_Autopilot extends A320_Neo_FCU_Component {
 class A320_Neo_FCU_Heading extends A320_Neo_FCU_Component {
     constructor() {
         super(...arguments);
-        this.backToIdleTimeout = 0;
-        this.idleCountdown = 5; // in seconds
-        this.trueAirspeedThreshold = 50; // in knots
-        this.headingForTrackRecalculationPeriod = 1500; // in ms
+        this.backToIdleTimeout = 45000;
         this.inSelection = false;
 
         this._rotaryEncoderCurrentSpeed = 1;
@@ -269,7 +266,7 @@ class A320_Neo_FCU_Heading extends A320_Neo_FCU_Component {
                 this.selectedValue = -1;
                 this.isSelectedValueActive = false;
                 this.inSelection = false;
-            }, 5000);
+            }, this.backToIdleTimeout);
         } else {
             this.isPreselectionModeActive = true;
         }
@@ -597,6 +594,8 @@ class A320_Neo_FCU_VerticalSpeed extends A320_Neo_FCU_Component {
         this.forceUpdate = true;
         this.ABS_MINMAX_FPA = 9.9;
         this.ABS_MINMAX_VS = 6000;
+        this.backToIdleTimeout = 45000;
+        this.previousVerticalMode = 0;
     }
     get currentState() {
         return this._currentState;
@@ -650,7 +649,7 @@ class A320_Neo_FCU_VerticalSpeed extends A320_Neo_FCU_Component {
                 this.selectedFpa = 0;
                 this.currentState = A320_Neo_FCU_VSpeed_State.Idle;
                 this.forceUpdate = true;
-            }, 10000);
+            }, this.backToIdleTimeout);
         } else if (this.currentState === A320_Neo_FCU_VSpeed_State.Zeroing) {
             this.currentState = A320_Neo_FCU_VSpeed_State.Flying;
             this.forceUpdate = true;
@@ -692,9 +691,9 @@ class A320_Neo_FCU_VerticalSpeed extends A320_Neo_FCU_Component {
         const isFPAMode = SimVar.GetSimVarValue("L:A32NX_TRK_FPA_MODE_ACTIVE", "Bool");
         const verticalMode = SimVar.GetSimVarValue("L:A32NX_FMA_VERTICAL_MODE", "Number");
 
-        if ((this.currentState === A320_Neo_FCU_VSpeed_State.Flying
-             || this.currentState === A320_Neo_FCU_VSpeed_State.Zeroing)
+        if ((this.previousVerticalMode != verticalMode)
             && (verticalMode !== 14 && verticalMode !== 15)) {
+            clearTimeout(this._resetSelectionTimeout);
             this._enterIdleState();
         }
 
@@ -732,6 +731,7 @@ class A320_Neo_FCU_VerticalSpeed extends A320_Neo_FCU_Component {
         }
 
         this.forceUpdate = false;
+        this.previousVerticalMode = verticalMode;
     }
 
     refresh(_isActive, _isFPAMode, _value, _lightsTest, _force = false) {
