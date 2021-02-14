@@ -116,11 +116,11 @@ class FlyByWireInterface {
   ID idFcuModeReversionActive;
   ID idFcuModeReversionTrkFpaActive;
 
+  ID idFlightGuidanceAvailable;
   ID idFlightGuidanceCrossTrackError;
   ID idFlightGuidanceTrackAngleError;
 
   ID idFlightPhase;
-  // ID idFmgcFlightPlanAvailable;
   ID idFmgcV2;
   ID idFmgcV_APP;
   ID idFmgcV_LS;

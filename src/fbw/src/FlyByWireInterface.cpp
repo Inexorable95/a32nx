@@ -200,7 +200,8 @@ bool FlyByWireInterface::updateAutopilotStateMachine(double sampleTime) {
     autopilotStateMachine.AutopilotStateMachine_U.in.data.VAPP_kn = get_named_variable_value(idFmgcV_APP);
     autopilotStateMachine.AutopilotStateMachine_U.in.data.VLS_kn = get_named_variable_value(idFmgcV_LS);
     autopilotStateMachine.AutopilotStateMachine_U.in.data.is_flight_plan_available =
-        customFlightGuidanceEnabled ? 1 : simData.gpsIsFlightPlanActive;
+        customFlightGuidanceEnabled ? get_named_variable_value(idFlightGuidanceAvailable)
+                                    : simData.gpsIsFlightPlanActive;
     autopilotStateMachine.AutopilotStateMachine_U.in.data.altitude_constraint_ft =
         get_named_variable_value(idFmgcAltitudeConstraint);
     autopilotStateMachine.AutopilotStateMachine_U.in.data.thrust_reduction_altitude =
@@ -394,7 +395,8 @@ bool FlyByWireInterface::updateAutopilotLaws(double sampleTime) {
     autopilotLaws.AutopilotLaws_U.in.data.VAPP_kn = get_named_variable_value(idFmgcV_APP);
     autopilotLaws.AutopilotLaws_U.in.data.VLS_kn = get_named_variable_value(idFmgcV_LS);
     autopilotLaws.AutopilotLaws_U.in.data.is_flight_plan_available =
-        customFlightGuidanceEnabled ? 1 : simData.gpsIsFlightPlanActive;
+        customFlightGuidanceEnabled ? get_named_variable_value(idFlightGuidanceAvailable)
+                                    : simData.gpsIsFlightPlanActive;
     autopilotLaws.AutopilotLaws_U.in.data.altitude_constraint_ft = get_named_variable_value(idFmgcAltitudeConstraint);
     autopilotLaws.AutopilotLaws_U.in.data.thrust_reduction_altitude =
         get_named_variable_value(idFmgcThrustReductionAltitude);
@@ -688,6 +690,7 @@ void FlyByWireInterface::setupLocalVariables() {
   idFmgcAccelerationAltitudeGoAround = register_named_variable("AIRLINER_ACC_ALT_GOAROUND");
   idFmgcCruiseAltitude = register_named_variable("AIRLINER_CRUISE_ALTITUDE");
 
+  idFlightGuidanceAvailable = register_named_variable("A32NX_FG_AVAIL");
   idFlightGuidanceCrossTrackError = register_named_variable("A32NX_FG_CROSS_TRACK_ERROR");
   idFlightGuidanceTrackAngleError = register_named_variable("A32NX_FG_TRACK_ANGLE_ERROR");
 
