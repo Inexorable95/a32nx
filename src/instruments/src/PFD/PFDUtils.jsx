@@ -160,6 +160,11 @@ export class LagFilter {
         this.TimeConstant = timeConstant;
     }
 
+    reset() {
+        this.PreviousInput = 0;
+        this.PreviousOutput = 0;
+    }
+
     /**
      *
      * @param input Input to filter

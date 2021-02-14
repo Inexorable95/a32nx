@@ -2,8 +2,8 @@ import * as RadNav from './RadioNav.jsx';
 import { getSimVar } from '../util.mjs';
 import { LagFilter } from './PFDUtils.jsx';
 
-const filterLocalizerIndicator = new LagFilter(2.0);
-const filterGlideslopeIndicator = new LagFilter(2.0);
+const filterLocalizerIndicator = new LagFilter(1.5);
+const filterGlideslopeIndicator = new LagFilter(1.5);
 
 export function LandingSystem({ LSButtonPressed, deltaTime }) {
     let localizer = null;
@@ -102,6 +102,8 @@ const LocalizerIndicator = ({ localizer, deltaTime }) => {
         } else {
             diamond = <path id="LocDiamond" className="NormalStroke Magenta" transform={`translate(${dots * 30.221 / 2} 0)`} d="m65.129 130.51 3.7776 2.5198 3.7776-2.5198-3.7776-2.5198z" />;
         }
+    } else {
+        filterLocalizerIndicator.reset();
     }
 
     return (
@@ -132,6 +134,8 @@ const GlideslopeIndicator = ({ localizer, deltaTime }) => {
         } else {
             diamond = <path id="GlideSlopeDiamond" className="NormalStroke Magenta" transform={`translate(0 ${dots * 30.238 / 2})`} d="m109.7 77.043-2.5184 3.7798 2.5184 3.7798 2.5184-3.7798z" />;
         }
+    } else {
+        filterGlideslopeIndicator.reset();
     }
 
     return (
