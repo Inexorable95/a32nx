@@ -197,6 +197,7 @@ typedef struct {
   boolean_T H_constraint_valid;
   boolean_T Psi_fcu_in_selection;
   boolean_T gs_convergent_towards_beam;
+  real_T H_dot_radio_fpm;
 } ap_sm_data_computed;
 
 #endif

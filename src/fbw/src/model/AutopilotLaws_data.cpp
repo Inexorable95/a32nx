@@ -137,7 +137,9 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   2.0,
 
-  1.0,
+  2.0,
+
+  2.0,
 
   1.0,
 
@@ -145,15 +147,21 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   0.7,
 
-  0.35,
+  1.0,
 
   0.35,
 
   0.35,
 
-  0.5,
+  0.35,
+
+  1.0,
+
+  0.3,
 
   0.35,
+
+  0.0,
 
   0.0,
 
@@ -192,7 +200,7 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
   { 1.9, 1.9, 3.0, 3.5, 4.5, 5.0 },
 
 
-  { 0.0, 0.0, -0.3, -2.0, -3.0 },
+  { 0.0, 0.0, -0.5, -2.0, -3.0 },
 
   3.0,
 
@@ -210,7 +218,7 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   1.0,
 
-  50.0,
+  60.0,
 
   -10.0,
 
@@ -266,7 +274,9 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   0.0,
 
-  0.0,
+  -3.0,
+
+  0.35,
 
   0.0,
 
@@ -468,6 +478,30 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   57.295779513082323,
 
+  0.0,
+
+  2.0,
+
+  0.0,
+
+  8.5,
+
+  0.0,
+
+  2.0,
+
+  0.0,
+
+  0.017453292519943295,
+
+  -1.0,
+
+  0.35,
+
+  -5.0,
+
+  0.35,
+
   20.0,
 
   5.0,
@@ -494,6 +528,8 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   -4.0,
 
+  0.15,
+
   0.0,
 
   0.00508,
@@ -517,38 +553,32 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
   57.295779513082323,
 
   0.017453292519943295,
-
-  0.0,
-
-  2.0,
-
-  0.0,
-
-  8.5,
-
-  0.0,
-
-  2.0,
-
-  0.0,
-
-  -1.0,
-
-  0.017453292519943295,
-
-  0.35,
-
-  -5.0,
-
-  0.35,
 
   -2.0,
 
   -0.2,
 
-  -200.0,
+  -250.0,
 
-  50.0,
+  -14.0,
+
+  150.0,
+
+  0.0,
+
+  0.0,
+
+  2.0,
+
+  0.0,
+
+  0.0,
+
+  2.0,
+
+  0.0,
+
+  60.0,
 
   0.00508,
 
@@ -574,6 +604,8 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
 
   -4.0,
 
+  0.15,
+
   120.0,
 
   0.00508,
@@ -587,10 +619,6 @@ Parameters_AutopilotLaws_T AutopilotLawsModelClass::AutopilotLaws_P = {
   57.295779513082323,
 
   20.0,
-
-  0.15,
-
-  0.15,
 
   1.0,
 
